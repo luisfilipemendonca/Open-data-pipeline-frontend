@@ -12,7 +12,8 @@
     "prefer-const": "error",
     "curly": ["error", "multi-line"],
     "typescript/no-explicit-any": "warn",
-    "react/jsx-no-useless-fragment": "warn"
+    "react/jsx-no-useless-fragment": "warn",
+    "react/react-in-jsx-scope": "off"
   },
   "env": {
     "browser": true
