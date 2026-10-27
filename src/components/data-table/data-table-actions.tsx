@@ -8,10 +8,7 @@ import {
 } from '../ui/dropdown-menu';
 import type { DataTableActionsProps } from './data-table.types';
 
-export const DataTableActions = <T extends { id: number }>({
-  row,
-  actions,
-}: DataTableActionsProps<T>) => {
+export const DataTableActions = <T extends object>({ row, actions }: DataTableActionsProps<T>) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger

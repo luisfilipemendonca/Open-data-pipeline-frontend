@@ -4,11 +4,12 @@ import type { DataTableProps } from './data-table.types';
 import { DataTableActions } from './data-table-actions';
 import { useDataTable } from './data-table.hook';
 
-export const DataTable = <T extends { id: number }>({
+export const DataTable = <T extends object>({
   title,
   data,
   actions,
   columns,
+  rowId,
 }: DataTableProps<T>) => {
   const { tableTitleId } = useDataTable();
 
@@ -26,9 +27,9 @@ export const DataTable = <T extends { id: number }>({
         </TableHeader>
         <TableBody>
           {data.map((row) => (
-            <TableRow key={row.id}>
+            <TableRow key={rowId(row)}>
               {columns.map((column) => (
-                <TableCell key={`${row.id}-${column.accessorKey.toString()}`}>
+                <TableCell key={`${rowId(row)}-${column.accessorKey.toString()}`}>
                   {column.render(row)}
                 </TableCell>
               ))}
