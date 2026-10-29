@@ -2,20 +2,39 @@ import { Heading } from '@/components/heading';
 import { useImports } from '../hooks/use-imports';
 import { DataTable } from '@/components/data-table';
 import { formatDateTime } from '@/lib/date';
-import { Button } from '@/components/ui/button';
+import { Sidebar } from '@/components/sidebar/sidebar';
 
 export const ImportsPage = () => {
   const { data } = useImports();
 
+  const pagination = data?.pagination
+    ? {
+        ...data.pagination,
+        totalPages: 12,
+        page: 9,
+        onPageChange: (page: number) => console.log(page),
+      }
+    : undefined;
+
   return (
-    <div>
+    <div className="flex flex-col gap-8">
       <div className="flex justify-between items-center">
-        <Heading as="h1">Imports page</Heading>
-        <Button>Import</Button>
+        <Heading as="h1">Imports</Heading>
+        <Sidebar
+          title="Upload file"
+          description="Add a .csv file to the input to upload it"
+          triggerLabel="Upload file"
+          actions={{
+            success: { label: 'Upload file', callback: () => console.log('hello there') },
+            cancel: { label: 'Cancel', callback: () => console.log('cancel there') },
+          }}
+        ></Sidebar>
       </div>
       <DataTable
+        title="Import history"
         data={data?.data ?? []}
         rowId={(row) => row.importId}
+        pagination={pagination}
         columns={[
           { header: 'Filename', accessorKey: 'fileName', render: (row) => row.fileName },
           { header: 'Status', accessorKey: 'status', render: (row) => row.status },

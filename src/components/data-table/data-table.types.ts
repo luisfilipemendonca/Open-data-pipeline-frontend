@@ -1,3 +1,4 @@
+import type { Pagination } from '@/types/pagination';
 import type { ReactNode } from 'react';
 
 export type DataTableColumn<T extends object> = {
@@ -11,12 +12,21 @@ export type DataTableAction<T extends object> = {
   callback: (row: T) => void;
 };
 
+export type BaseDataTablePagination = Pagination & {
+  onPageChange: (page: number) => void;
+};
+
 export type DataTableProps<T extends object> = {
   title?: string;
   data: T[];
   columns: DataTableColumn<T>[];
   actions?: DataTableAction<T>[];
+  pagination?: BaseDataTablePagination;
   rowId: (row: T) => string | number;
+};
+
+export type DataTablePaginationProps = {
+  pagination: BaseDataTablePagination;
 };
 
 export type DataTableActionsProps<T extends object> = {

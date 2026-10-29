@@ -3,19 +3,22 @@ import type { DataTableProps } from './data-table.types';
 
 import { DataTableActions } from './data-table-actions';
 import { useDataTable } from './data-table.hook';
+import { Heading } from '../heading';
+import { DataTablePagination } from './data-table-pagination';
 
 export const DataTable = <T extends object>({
   title,
   data,
   actions,
   columns,
+  pagination,
   rowId,
 }: DataTableProps<T>) => {
   const { tableTitleId } = useDataTable();
 
   return (
-    <>
-      {title && <h2 id={tableTitleId}>{title}</h2>}
+    <div className="flex flex-col gap-8">
+      {title && <Heading id={tableTitleId}>{title}</Heading>}
       <Table aria-labelledby={title ? tableTitleId : undefined}>
         <TableHeader>
           <TableRow>
@@ -42,6 +45,7 @@ export const DataTable = <T extends object>({
           ))}
         </TableBody>
       </Table>
-    </>
+      {pagination && <DataTablePagination pagination={pagination} />}
+    </div>
   );
 };
