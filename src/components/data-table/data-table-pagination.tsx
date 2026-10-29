@@ -4,8 +4,32 @@ import { ChevronsLeft, ChevronsRight, ChevronLeft, ChevronRight } from 'lucide-r
 import type { DataTablePaginationProps, PaginationButtonType } from './types';
 import { useMemo } from 'react';
 import { DataTablePaginationButtonFactory } from './data-table-pagination-factory';
+import { SelectField, type SelectOption } from '../select-field';
 
 const MAX_VISIBLE_PAGES = 5;
+
+const PAGE_SIZE_OPTIONS: SelectOption[] = [
+  {
+    id: 'option-1',
+    value: '10',
+    label: '10',
+  },
+  {
+    id: 'option-2',
+    value: '20',
+    label: '20',
+  },
+  {
+    id: 'option-3',
+    value: '50',
+    label: '50',
+  },
+  {
+    id: 'option-4',
+    value: '100',
+    label: '100',
+  },
+];
 
 export const DataTablePagination = ({ pagination }: DataTablePaginationProps) => {
   const { page, pageSize, total, totalPages, onPageChange } = pagination;
@@ -76,8 +100,13 @@ export const DataTablePagination = ({ pagination }: DataTablePaginationProps) =>
 
   return (
     <div className="flex justify-between items-center">
-      <div>
-        Page {page} of {totalPages}
+      <div className="flex items-center gap-2">
+        <span>Rows per page</span>
+        <SelectField
+          options={PAGE_SIZE_OPTIONS}
+          selectedValue={pageSize.toString()}
+          onChange={(value) => (value ? pagination?.onPageSizeChange(+value) : undefined)}
+        />
       </div>
       <Pagination className="justify-start w-fit mx-0">
         <PaginationContent>

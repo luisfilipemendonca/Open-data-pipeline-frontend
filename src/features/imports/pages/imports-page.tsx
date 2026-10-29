@@ -3,16 +3,41 @@ import { useImports } from '../hooks/use-imports';
 import { DataTable } from '@/components/data-table';
 import { formatDateTime } from '@/lib/date';
 import { Sidebar } from '@/components/sidebar/sidebar';
+import { useState } from 'react';
+import type { Pagination } from '@/types/pagination';
+
+const usePagination = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPageSize, setCurrentPageSize] = useState(10);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handlePageSizeChange = (pageSize: number) => {
+    setCurrentPageSize(pageSize);
+  };
+
+  const processPagination = (pagination: Pagination | undefined) => {
+    if (!pagination) return undefined;
+
+    return {
+      ...pagination,
+      onPageChange: handlePageChange,
+      onPageSizeChange: handlePageSizeChange,
+    };
+  };
+
+  return {
+    currentPage,
+    currentPageSize,
+    processPagination,
+  };
+};
 
 export const ImportsPage = () => {
-  const { data } = useImports();
-
-  const pagination = data?.pagination
-    ? {
-        ...data.pagination,
-        onPageChange: (page: number) => console.log(page),
-      }
-    : undefined;
+  const { currentPage, currentPageSize, processPagination } = usePagination();
+  const { data } = useImports({ page: currentPage, pageSize: currentPageSize });
 
   return (
     <div className="flex flex-col gap-8">
@@ -32,7 +57,7 @@ export const ImportsPage = () => {
         title="Import history"
         data={data?.data ?? []}
         rowId={(row) => row.importId}
-        pagination={pagination}
+        pagination={processPagination(data?.pagination)}
         columns={[
           { header: 'Filename', accessorKey: 'fileName', render: (row) => row.fileName },
           { header: 'Status', accessorKey: 'status', render: (row) => row.status },

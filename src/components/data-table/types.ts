@@ -14,6 +14,7 @@ export type DataTableAction<T extends object> = {
 
 export type BaseDataTablePagination = Pagination & {
   onPageChange: (page: number) => void;
+  onPageSizeChange: (pageSize: number) => void;
 };
 
 export type DataTableProps<T extends object> = {
