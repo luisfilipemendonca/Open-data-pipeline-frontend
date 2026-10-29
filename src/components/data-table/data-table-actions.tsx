@@ -6,7 +6,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from '../ui/dropdown-menu';
-import type { DataTableActionsProps } from './data-table.types';
+import type { DataTableActionsProps } from './types';
 
 export const DataTableActions = <T extends object>({ row, actions }: DataTableActionsProps<T>) => {
   return (

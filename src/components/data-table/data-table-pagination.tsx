@@ -1,101 +1,78 @@
 import { Button } from '../ui/button';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-} from '../ui/pagination';
+import { Pagination, PaginationContent, PaginationItem } from '../ui/pagination';
 import { ChevronsLeft, ChevronsRight, ChevronLeft, ChevronRight } from 'lucide-react';
-import type { DataTablePaginationProps, BaseDataTablePagination } from './data-table.types';
+import type { DataTablePaginationProps, PaginationButtonType } from './types';
 import { useMemo } from 'react';
-import { cn } from 'cn';
-
-type DataTablePaginationButtonProps = Pick<BaseDataTablePagination, 'page' | 'onPageChange'> & {
-  isSelected: boolean;
-};
-
-const DataTablePaginationButton = ({
-  page,
-  isSelected,
-  onPageChange,
-}: DataTablePaginationButtonProps) => {
-  return (
-    <PaginationItem>
-      <Button
-        className={cn('size-9', isSelected && 'bg-muted')}
-        variant="ghost"
-        onClick={() => onPageChange(page)}
-      >
-        {page}
-      </Button>
-    </PaginationItem>
-  );
-};
+import { DataTablePaginationButtonFactory } from './data-table-pagination-factory';
 
 const MAX_VISIBLE_PAGES = 5;
 
 export const DataTablePagination = ({ pagination }: DataTablePaginationProps) => {
   const { page, pageSize, total, totalPages, onPageChange } = pagination;
 
-  const PaginationButtons = useMemo(() => {
-    const paginationButtons = [];
+  const paginationButtons = useMemo(() => {
+    const paginationButtonsArr: PaginationButtonType[] = [];
 
     if (totalPages <= MAX_VISIBLE_PAGES) {
       Array.from({ length: totalPages }, (_, index) =>
-        paginationButtons.push({ key: `page-${index + 1}`, value: index + 1 }),
+        paginationButtonsArr.push({ key: `page-${index + 1}`, value: index + 1, type: 'button' }),
       );
     } else {
       if (page < MAX_VISIBLE_PAGES - 1) {
         Array.from({ length: MAX_VISIBLE_PAGES - 1 }, (_, index) => {
-          paginationButtons.push({ key: `page-${index + 1}`, value: index + 1 });
+          paginationButtonsArr.push({ key: `page-${index + 1}`, value: index + 1, type: 'button' });
         });
 
-        paginationButtons.push(
-          { key: 'ellipsis-end' },
-          { key: `page-${totalPages}`, value: totalPages },
+        paginationButtonsArr.push(
+          { key: 'ellipsis-end', type: 'ellipsis' },
+          { key: `page-${totalPages}`, value: totalPages, type: 'button' },
         );
       } else if (totalPages - page < MAX_VISIBLE_PAGES - 2) {
-        paginationButtons.push({ key: 'page-1', value: 1 }, { key: 'ellipsis-start' });
+        paginationButtonsArr.push(
+          { key: 'page-1', value: 1, type: 'button' },
+          { key: 'ellipsis-start', type: 'ellipsis' },
+        );
 
         Array.from({ length: MAX_VISIBLE_PAGES - 1 }, (_, index) => {
           const offset = index + 2;
           const currentPage = totalPages - MAX_VISIBLE_PAGES + offset;
-          paginationButtons.push({ key: `page-${currentPage}`, value: currentPage });
+          paginationButtonsArr.push({
+            key: `page-${currentPage}`,
+            value: currentPage,
+            type: 'button',
+          });
         });
       } else {
-        paginationButtons.push({ key: 'page-1', value: 1 }, { key: 'ellipsis-start' });
+        paginationButtonsArr.push(
+          { key: 'page-1', value: 1, type: 'button' },
+          { key: 'ellipsis-start', type: 'ellipsis' },
+        );
 
         Array.from({ length: MAX_VISIBLE_PAGES - 2 }, (_, index) => {
           const currentPage = page + index - 1;
-          paginationButtons.push({ key: `page-${currentPage}`, value: currentPage });
+          paginationButtonsArr.push({
+            key: `page-${currentPage}`,
+            value: currentPage,
+            type: 'button',
+          });
         });
 
-        paginationButtons.push(
-          { key: 'ellipsis-end' },
-          { key: `page-${totalPages}`, value: totalPages },
+        paginationButtonsArr.push(
+          { key: 'ellipsis-end', type: 'ellipsis' },
+          { key: `page-${totalPages}`, value: totalPages, type: 'button' },
         );
       }
     }
 
-    return paginationButtons.map((paginationButton) => {
-      if (paginationButton.value) {
-        return (
-          <DataTablePaginationButton
-            isSelected={page === paginationButton.value}
-            key={paginationButton.key}
-            page={paginationButton.value}
-            onPageChange={onPageChange}
-          />
-        );
-      }
+    return paginationButtonsArr;
+  }, [page, totalPages]);
 
-      return (
-        <PaginationItem key={paginationButton.key}>
-          <PaginationEllipsis className="items-center-safe relative top-1" />
-        </PaginationItem>
-      );
-    });
-  }, [page, totalPages, onPageChange]);
+  const isFirstPage = page === 1;
+  const isLastPage = page === totalPages;
+  const hasOnlyOnePage = totalPages === 1;
+
+  const isBackDisabled = isFirstPage || hasOnlyOnePage;
+  const isForwardDisabled = isLastPage || hasOnlyOnePage;
 
   return (
     <div className="flex justify-between items-center">
@@ -105,23 +82,31 @@ export const DataTablePagination = ({ pagination }: DataTablePaginationProps) =>
       <Pagination className="justify-start w-fit mx-0">
         <PaginationContent>
           <PaginationItem>
-            <Button className="size-9" variant="outline">
+            <Button className="size-9" variant="outline" disabled={isBackDisabled}>
               <ChevronsLeft className="text-black" />
             </Button>
           </PaginationItem>
           <PaginationItem>
-            <Button className="size-9" variant="outline">
+            <Button className="size-9" variant="outline" disabled={isBackDisabled}>
               <ChevronLeft className="text-black" />
             </Button>
           </PaginationItem>
-          {PaginationButtons}
+          {paginationButtons.map((button) => (
+            <DataTablePaginationButtonFactory
+              key={button.key}
+              type={button.type}
+              value={button?.value}
+              page={page}
+              onPageChange={onPageChange}
+            />
+          ))}
           <PaginationItem>
-            <Button className="size-9" variant="outline">
+            <Button className="size-9" variant="outline" disabled={isForwardDisabled}>
               <ChevronRight className="text-black" />
             </Button>
           </PaginationItem>
           <PaginationItem>
-            <Button className="size-9" variant="outline">
+            <Button className="size-9" variant="outline" disabled={isForwardDisabled}>
               <ChevronsRight className="text-black" />
             </Button>
           </PaginationItem>

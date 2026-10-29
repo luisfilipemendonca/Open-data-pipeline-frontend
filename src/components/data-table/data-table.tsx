@@ -1,5 +1,5 @@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
-import type { DataTableProps } from './data-table.types';
+import type { DataTableProps } from './types';
 
 import { DataTableActions } from './data-table-actions';
 import { useDataTable } from './data-table.hook';

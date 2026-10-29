@@ -10,8 +10,6 @@ export const ImportsPage = () => {
   const pagination = data?.pagination
     ? {
         ...data.pagination,
-        totalPages: 12,
-        page: 9,
         onPageChange: (page: number) => console.log(page),
       }
     : undefined;

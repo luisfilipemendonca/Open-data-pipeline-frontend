@@ -33,3 +33,19 @@ export type DataTableActionsProps<T extends object> = {
   row: T;
   actions: DataTableAction<T>[];
 };
+
+export type DataTablePaginationButtonProps = Pick<
+  BaseDataTablePagination,
+  'page' | 'onPageChange'
+> & {
+  isSelected: boolean;
+};
+
+export type PaginationButtonType = {
+  type: 'button' | 'ellipsis';
+  key: string;
+  value?: number;
+};
+
+export type DataTablePaginationButtonFactoryProps = Omit<PaginationButtonType, 'key'> &
+  Omit<DataTablePaginationButtonProps, 'isSelected'>;
