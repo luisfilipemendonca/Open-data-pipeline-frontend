@@ -5,6 +5,7 @@ import { formatDateTime } from '@/lib/date';
 import { Sidebar } from '@/components/sidebar/sidebar';
 import { useState } from 'react';
 import type { Pagination } from '@/types/pagination';
+import { Text } from '@/components/text';
 
 const usePagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
