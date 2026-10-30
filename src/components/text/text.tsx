@@ -1,16 +1,6 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'cn';
-import type { ComponentProps, PropsWithChildren } from 'react';
-
-type TextTag = 'p' | 'span';
-
-type Size = 'xsmall' | 'small' | 'base' | 'large';
-
-type TextProps<T extends TextTag> = PropsWithChildren<{
-  as?: T;
-  size?: Size;
-}> &
-  Omit<ComponentProps<T>, 'as' | 'children' | 'ref'>;
+import type { TextProps, TextTag } from './types';
 
 const textVariant = cva('', {
   variants: {
@@ -19,6 +9,12 @@ const textVariant = cva('', {
       small: 'text-sm',
       base: 'text-base',
       large: 'text-lg',
+    },
+    weight: {
+      normal: 'font-normal',
+      medium: 'font-medium',
+      semibold: 'font-semibold',
+      bold: 'font-bold',
     },
   },
   defaultVariants: {
@@ -30,13 +26,14 @@ export const Text = <T extends TextTag = 'p'>({
   as,
   children,
   className,
+  weight = 'normal',
   size = 'base',
   ...props
 }: TextProps<T>) => {
   const Component = as ?? 'p';
 
   return (
-    <Component {...props} className={cn(textVariant({ size }), className)}>
+    <Component {...props} className={cn(textVariant({ size, weight }), className)}>
       {children}
     </Component>
   );

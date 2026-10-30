@@ -1,12 +1,6 @@
 import { cva } from 'class-variance-authority';
 import { cn } from 'cn';
-import { type ComponentProps, type PropsWithChildren } from 'react';
-
-type HeadingTag = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
-
-type HeadingProps<T extends HeadingTag = 'h2'> = PropsWithChildren & {
-  as?: T;
-} & Omit<ComponentProps<T>, 'as' | 'children'>;
+import type { HeadingTag, HeadingProps } from './types';
 
 const headingVariants = cva('', {
   variants: {
