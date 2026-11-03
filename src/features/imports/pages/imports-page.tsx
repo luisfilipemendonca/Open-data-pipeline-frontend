@@ -3,40 +3,7 @@ import { useImports } from '../hooks/use-imports';
 import { DataTable } from '@/components/data-table';
 import { formatDateTime } from '@/lib/date';
 import { Sidebar } from '@/components/sidebar/sidebar';
-import { useState } from 'react';
-import type { Pagination } from '@/types/pagination';
-import { Text } from '@/components/text';
-import { Input } from '@/components/ui/input';
-import { UploadField } from '@/components/upload-field';
-
-const usePagination = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [currentPageSize, setCurrentPageSize] = useState(10);
-
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  const handlePageSizeChange = (pageSize: number) => {
-    setCurrentPageSize(pageSize);
-  };
-
-  const processPagination = (pagination: Pagination | undefined) => {
-    if (!pagination) return undefined;
-
-    return {
-      ...pagination,
-      onPageChange: handlePageChange,
-      onPageSizeChange: handlePageSizeChange,
-    };
-  };
-
-  return {
-    currentPage,
-    currentPageSize,
-    processPagination,
-  };
-};
+import { usePagination } from '@/hooks/use-pagination';
 
 export const ImportsPage = () => {
   const { currentPage, currentPageSize, processPagination } = usePagination();
@@ -44,7 +11,6 @@ export const ImportsPage = () => {
 
   return (
     <div className="flex flex-col gap-8">
-      <UploadField />
       <div className="flex justify-between items-center">
         <Heading as="h1">Imports</Heading>
         <Sidebar
