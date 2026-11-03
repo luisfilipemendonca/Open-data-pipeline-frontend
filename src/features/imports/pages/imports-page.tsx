@@ -6,6 +6,8 @@ import { Sidebar } from '@/components/sidebar/sidebar';
 import { useState } from 'react';
 import type { Pagination } from '@/types/pagination';
 import { Text } from '@/components/text';
+import { Input } from '@/components/ui/input';
+import { UploadField } from '@/components/upload-field';
 
 const usePagination = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,6 +44,7 @@ export const ImportsPage = () => {
 
   return (
     <div className="flex flex-col gap-8">
+      <UploadField />
       <div className="flex justify-between items-center">
         <Heading as="h1">Imports</Heading>
         <Sidebar
