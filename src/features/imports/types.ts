@@ -1,3 +1,4 @@
+import type { SelectOption } from '@/components/select-field';
 import type { Paginated } from '@/types/pagination';
 
 export type ImportResponse = {
@@ -19,3 +20,7 @@ export type Import = {
 };
 
 export type GetImportsResponse = Paginated<Import>;
+
+export type SchemasOptionsResponse = {
+  data: SelectOption[];
+};

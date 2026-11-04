@@ -19,7 +19,7 @@ export const Sidebar = ({ title, description, actions, triggerLabel, children }:
     <Drawer open={isOpen} onOpenChange={setIsOpen} swipeDirection="right">
       <DrawerTrigger render={<Button>{triggerLabel}</Button>} />
       <DrawerContent className="w-lg">
-        <DrawerHeader>
+        <DrawerHeader className="mb-4 pb-4 border-b">
           <DrawerTitle>{title}</DrawerTitle>
           {description && <DrawerDescription>{description}</DrawerDescription>}
         </DrawerHeader>

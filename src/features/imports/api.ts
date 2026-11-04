@@ -2,7 +2,7 @@ import { api } from '@/lib/axios';
 import { mapPaginationResponse } from '@/mappers/pagination';
 import type { PaginatedResponse, Pagination } from '@/types/pagination';
 import { mapImportsResponse } from './mappers';
-import type { GetImportsResponse, ImportResponse } from './types';
+import type { GetImportsResponse, ImportResponse, SchemasOptionsResponse } from './types';
 
 export const getImports = async ({
   page,
@@ -18,4 +18,10 @@ export const getImports = async ({
     data: mapImportsResponse(data.data),
     pagination: mapPaginationResponse(data.pagination),
   };
+};
+
+export const getSchemasOptions = async (): Promise<SchemasOptionsResponse> => {
+  const { data } = await api.get<SchemasOptionsResponse>('/schemas/options');
+
+  return data;
 };

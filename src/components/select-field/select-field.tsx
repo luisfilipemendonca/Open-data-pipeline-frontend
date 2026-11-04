@@ -27,7 +27,7 @@ export const SelectField = ({
         <SelectContent alignItemWithTrigger={false} align="end">
           {options.map((option) => (
             <SelectItem key={option.id} value={option.value}>
-              {option.value}
+              {option.label}
             </SelectItem>
           ))}
         </SelectContent>
