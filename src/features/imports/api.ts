@@ -3,6 +3,7 @@ import { mapPaginationResponse } from '@/mappers/pagination';
 import type { PaginatedResponse, Pagination } from '@/types/pagination';
 import { mapImportDetailsResponse, mapImportRowsResponse, mapImportsResponse } from './mappers';
 import type {
+  DeleteImportRowData,
   GetImportDetailsResponse,
   GetImportRowsResponse,
   GetImportsResponse,
@@ -64,4 +65,8 @@ export const getImportRows = async ({
     data: mapImportRowsResponse(data.data),
     pagination: mapPaginationResponse(data.pagination),
   };
+};
+
+export const deleteImportRow = async ({ importId, rowId }: DeleteImportRowData) => {
+  return api.delete(`/imports/${importId}/rows/${rowId}`);
 };

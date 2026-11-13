@@ -92,3 +92,8 @@ export type ImportRows = {
 };
 
 export type GetImportRowsResponse = Paginated<ImportRows>;
+
+export type DeleteImportRowData = {
+  importId: Import['importId'];
+  rowId: ImportRows['id'];
+};
