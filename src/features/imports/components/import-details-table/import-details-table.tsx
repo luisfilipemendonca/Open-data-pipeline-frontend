@@ -80,6 +80,18 @@ export const ImportDetailsTable = () => {
       pagination={processPagination(data?.pagination)}
       actions={[
         {
+          type: 'item',
+          label: 'Edit',
+          callback: (row) => console.log(row),
+        },
+        {
+          type: 'item',
+          label: 'History',
+          callback: (row) => console.log(row),
+        },
+        { type: 'separator' },
+        {
+          type: 'item',
           label: 'Delete',
           callback: (row) => deleteImportRowMutation({ importId: 41, rowId: row.id }),
           variant: 'destructive',

@@ -7,9 +7,14 @@ export type DataTableColumn<T extends object> = {
 };
 
 export type DataTableAction<T extends object> = {
+  type: 'item';
   label: string;
   callback: (row: T) => void;
   variant?: 'default' | 'destructive';
+};
+
+export type DataTableActionSeparator = {
+  type: 'separator';
 };
 
 export type BaseDataTablePagination = Pagination & {
@@ -21,7 +26,7 @@ export type DataTableProps<T extends object> = {
   title?: string;
   data: T[];
   columns: DataTableColumn<T>[] | undefined;
-  actions?: DataTableAction<T>[];
+  actions?: (DataTableAction<T> | DataTableActionSeparator)[];
   pagination?: BaseDataTablePagination;
   rowId: (row: T) => string | number;
 };
@@ -32,7 +37,7 @@ export type DataTablePaginationProps = {
 
 export type DataTableActionsProps<T extends object> = {
   row: T;
-  actions: DataTableAction<T>[];
+  actions: (DataTableAction<T> | DataTableActionSeparator)[];
 };
 
 export type DataTablePaginationButtonProps = Pick<
