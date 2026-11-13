@@ -9,6 +9,7 @@ export type DataTableColumn<T extends object> = {
 export type DataTableAction<T extends object> = {
   label: string;
   callback: (row: T) => void;
+  variant?: 'default' | 'destructive';
 };
 
 export type BaseDataTablePagination = Pagination & {

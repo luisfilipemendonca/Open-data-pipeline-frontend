@@ -82,6 +82,7 @@ export const ImportDetailsTable = () => {
         {
           label: 'Delete',
           callback: (row) => deleteImportRowMutation({ importId: 41, rowId: row.id }),
+          variant: 'destructive',
         },
       ]}
     />

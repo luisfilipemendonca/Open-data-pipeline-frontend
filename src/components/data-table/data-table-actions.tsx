@@ -25,6 +25,7 @@ export const DataTableActions = <T extends object>({ row, actions }: DataTableAc
             className="cursor-pointer"
             key={action.label}
             onClick={() => action.callback(row)}
+            variant={action.variant ?? 'default'}
           >
             {action.label}
           </DropdownMenuItem>
