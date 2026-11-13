@@ -4,6 +4,8 @@ import { CircleCheck, CircleX, ChartNoAxesColumn } from 'lucide-react';
 import { RowDetailsCard } from './rows-details-card';
 import { useGetImportDetails } from '../../hooks/use-get-import-details';
 import { Heading } from '@/components/heading';
+import { AppBadge } from '@/components/app-badge';
+import { AppBullet } from '@/components/app-bullet';
 
 export const ImportDetails = () => {
   const { data: importDetails } = useGetImportDetails(41);
@@ -17,7 +19,12 @@ export const ImportDetails = () => {
           <Heading>Import #{importDetails.data.importId}</Heading>
           <Text>Import started on {importDetails.data.createdAt}</Text>
         </div>
-        <div>{importDetails.data.status}</div>
+        <div>
+          <AppBadge className="flex gap-2">
+            <AppBullet />
+            {importDetails.data.status}
+          </AppBadge>
+        </div>
       </div>
       <div className="mb-4">
         <Card className="flex h-32 gap-4">

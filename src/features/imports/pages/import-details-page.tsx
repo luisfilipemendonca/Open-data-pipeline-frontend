@@ -49,12 +49,12 @@ export const ImportDetailsPage = () => {
         header: 'Status',
         render: (row) =>
           row.isValid ? (
-            <AppBadge className="flex items-center">
+            <AppBadge size="sm" className="flex items-center">
               <AppBullet />
               Valid
             </AppBadge>
           ) : (
-            <AppBadge variant="destructive" className="flex items-center">
+            <AppBadge size="sm" variant="destructive" className="flex items-center">
               <AppBullet />
               Error
             </AppBadge>
