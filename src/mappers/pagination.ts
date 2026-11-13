@@ -1,3 +1,5 @@
+import type { PaginationResponse, Pagination } from '@/types/pagination';
+
 export const mapPaginationResponse = (pagination: PaginationResponse): Pagination => {
   return {
     page: pagination.page,

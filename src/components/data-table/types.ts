@@ -2,7 +2,6 @@ import type { Pagination } from '@/types/pagination';
 import type { ReactNode } from 'react';
 
 export type DataTableColumn<T extends object> = {
-  accessorKey: keyof T;
   header: string;
   render: (row: T) => ReactNode;
 };
@@ -20,7 +19,7 @@ export type BaseDataTablePagination = Pagination & {
 export type DataTableProps<T extends object> = {
   title?: string;
   data: T[];
-  columns: DataTableColumn<T>[];
+  columns: DataTableColumn<T>[] | undefined;
   actions?: DataTableAction<T>[];
   pagination?: BaseDataTablePagination;
   rowId: (row: T) => string | number;

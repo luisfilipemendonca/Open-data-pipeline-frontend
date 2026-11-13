@@ -63,16 +63,14 @@ export const ImportsPage = () => {
         rowId={(row) => row.importId}
         pagination={processPagination(data?.pagination)}
         columns={[
-          { header: 'Filename', accessorKey: 'fileName', render: (row) => row.fileName },
-          { header: 'Status', accessorKey: 'status', render: (row) => row.status },
+          { header: 'Filename', render: (row) => row.fileName },
+          { header: 'Status', render: (row) => row.status },
           {
             header: 'Created at',
-            accessorKey: 'createdAt',
             render: (row) => formatDateTime(row.createdAt),
           },
           {
             header: 'Updated at',
-            accessorKey: 'updatedAt',
             render: (row) => formatDateTime(row.updatedAt),
           },
         ]}

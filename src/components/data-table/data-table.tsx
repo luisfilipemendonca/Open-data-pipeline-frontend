@@ -17,13 +17,13 @@ export const DataTable = <T extends object>({
   const { tableTitleId } = useDataTable();
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-4">
       {title && <Heading id={tableTitleId}>{title}</Heading>}
       <Table aria-labelledby={title ? tableTitleId : undefined}>
         <TableHeader>
           <TableRow>
-            {columns.map((column) => (
-              <TableHead key={column.accessorKey.toString()}>{column.header}</TableHead>
+            {columns?.map((column) => (
+              <TableHead key={column.header}>{column.header}</TableHead>
             ))}
             {actions && <TableHead className="text-end">Actions</TableHead>}
           </TableRow>
@@ -31,10 +31,8 @@ export const DataTable = <T extends object>({
         <TableBody>
           {data.map((row) => (
             <TableRow key={rowId(row)}>
-              {columns.map((column) => (
-                <TableCell key={`${rowId(row)}-${column.accessorKey.toString()}`}>
-                  {column.render(row)}
-                </TableCell>
+              {columns?.map((column) => (
+                <TableCell key={`${rowId(row)}-${column.header}`}>{column.render(row)}</TableCell>
               ))}
               {actions && (
                 <TableCell className="text-end">

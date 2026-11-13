@@ -1,9 +1,9 @@
-import { ImportsPage } from '@features/imports/pages/imports-page';
+import { ImportDetailsPage } from './features/imports/pages/import-details-page';
 
 const App = () => {
   return (
     <div className="py-4 px-8">
-      <ImportsPage />
+      <ImportDetailsPage />
     </div>
   );
 };
