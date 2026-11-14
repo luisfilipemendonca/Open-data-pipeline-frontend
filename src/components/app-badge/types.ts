@@ -4,5 +4,5 @@ import type { badgeVariants } from '../ui/badge';
 
 export type AppBadgeProps = useRender.ComponentProps<'span'> &
   VariantProps<typeof badgeVariants> & {
-    size?: 'sm' | 'md' | 'lg';
+    size?: 'xs' | 'sm' | 'md' | 'lg';
   };

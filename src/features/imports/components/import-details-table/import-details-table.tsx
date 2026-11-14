@@ -50,12 +50,12 @@ export const ImportDetailsTable = () => {
         header: 'Status',
         render: (row) =>
           row.isValid ? (
-            <AppBadge size="sm" className="flex items-center">
+            <AppBadge size="xs" className="flex items-center">
               <AppBullet />
               Valid
             </AppBadge>
           ) : (
-            <AppBadge size="sm" variant="destructive" className="flex items-center">
+            <AppBadge size="xs" variant="destructive" className="flex items-center">
               <AppBullet />
               Error
             </AppBadge>

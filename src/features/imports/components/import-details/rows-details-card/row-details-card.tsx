@@ -19,7 +19,7 @@ export const RowDetailsCard = ({
         <Text as="span" size="small">
           {label}
         </Text>
-        <Text as="span" size="large" className="font-bold border-">
+        <Text as="span" size="base" className="font-bold border-">
           {value}
         </Text>
       </Text>
