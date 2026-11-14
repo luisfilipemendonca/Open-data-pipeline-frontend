@@ -41,12 +41,14 @@ export const ImportDetails = () => {
           icon={CircleCheck}
           label="Valid records"
           value={importDetails.data.summary.totalValidRows}
+          iconBadgeVariant="success"
         />
         <RowDetailsCard
           cardVariant="danger"
           icon={CircleX}
           label="Records with errors"
           value={importDetails.data.summary.totalInvalidRows}
+          iconBadgeVariant="danger"
         />
         <RowDetailsCard
           icon={ChartNoAxesColumn}

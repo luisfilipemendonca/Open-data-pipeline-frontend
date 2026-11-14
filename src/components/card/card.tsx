@@ -2,13 +2,13 @@ import { cva } from 'class-variance-authority';
 import { cn } from 'cn';
 import type { CardProps } from './types';
 
-const cardVariants = cva('border rounded-sm p-4', {
+const cardVariants = cva('shadow-[0_0_2px] rounded-sm p-4', {
   variants: {
     variant: {
-      neutral: 'bg-white',
-      success: 'bg-green-50 border-green-200',
-      warning: 'bg-amber-50 border-amber-200',
-      danger: 'bg-red-50 border-red-200',
+      neutral: 'bg-white shadow-slate-300',
+      success: 'bg-green-50 shadow-green-300',
+      warning: 'bg-amber-50 shadow-amber-300',
+      danger: 'bg-red-50 shadow-red-300',
     },
   },
 });
