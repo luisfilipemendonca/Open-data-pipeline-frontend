@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useGetSchemasOptions } from '../hooks/use-get-schemas-options';
 import type { Import } from '../types';
 import { useNavigate } from '@tanstack/react-router';
+import { useDeleteImport } from '../hooks/use-delete-import';
 
 const CreateImportForm = () => {
   const [schemaOption, setSchemaOption] = useState<SelectOption | undefined>(undefined);
@@ -42,6 +43,7 @@ const CreateImportForm = () => {
 export const ImportsPage = () => {
   const { currentPage, currentPageSize, processPagination } = usePagination();
   const { data } = useImports({ page: currentPage, pageSize: currentPageSize });
+  const { mutate: deleteImportMutation } = useDeleteImport();
 
   const navigate = useNavigate();
 
@@ -92,6 +94,15 @@ export const ImportsPage = () => {
             type: 'item',
             label: 'Detalhes',
             callback: handleNavigateDetails,
+          },
+          {
+            type: 'separator',
+          },
+          {
+            type: 'item',
+            label: 'Delete',
+            callback: (row) => deleteImportMutation(row.importId),
+            variant: 'destructive',
           },
         ]}
       />

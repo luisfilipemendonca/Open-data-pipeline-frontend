@@ -70,3 +70,7 @@ export const getImportRows = async ({
 export const deleteImportRow = async ({ importId, rowId }: DeleteImportRowData) => {
   return api.delete(`/imports/${importId}/rows/${rowId}`);
 };
+
+export const deleteImport = async (importId: Import['importId']) => {
+  return api.delete(`/imports/${importId}`);
+};
