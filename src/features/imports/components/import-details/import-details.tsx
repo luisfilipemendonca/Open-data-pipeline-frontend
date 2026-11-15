@@ -9,9 +9,10 @@ import { AppBullet } from '@/components/app-bullet';
 import { importFormatDate, importFormatDateTime } from '@/lib/date';
 import { AppIconBadge } from '@/components/app-icon-badge';
 import { AppButton } from '@/components/app-button';
+import type { ImportDetailsProps } from './types';
 
-export const ImportDetails = () => {
-  const { data: importDetails } = useGetImportDetails(41);
+export const ImportDetails = ({ importId }: ImportDetailsProps) => {
+  const { data: importDetails } = useGetImportDetails(importId);
 
   if (!importDetails?.data) return null;
 

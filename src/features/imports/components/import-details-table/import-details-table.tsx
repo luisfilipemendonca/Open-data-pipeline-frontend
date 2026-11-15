@@ -7,11 +7,16 @@ import { useMemo } from 'react';
 import { useGetImportRows } from '../../hooks/use-get-import-rows';
 import type { ImportRows } from '../../types';
 import { useDeleteImportRow } from '../../hooks/use-delete-import-row';
+import type { ImportDetailsTableProps } from './types';
 
-export const ImportDetailsTable = () => {
+export const ImportDetailsTable = ({ importId }: ImportDetailsTableProps) => {
   const { currentPage, currentPageSize, processPagination } = usePagination();
 
-  const { data } = useGetImportRows({ importId: 41, page: currentPage, pageSize: currentPageSize });
+  const { data } = useGetImportRows({
+    importId: importId,
+    page: currentPage,
+    pageSize: currentPageSize,
+  });
   const { mutate: deleteImportRowMutation } = useDeleteImportRow();
 
   const columns = useMemo((): DataTableProps<ImportRows>['columns'] => {
