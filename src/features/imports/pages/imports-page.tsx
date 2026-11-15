@@ -8,6 +8,8 @@ import { SelectField, type SelectOption } from '@/components/select-field';
 import { UploadField } from '@/components/upload-field';
 import { useState } from 'react';
 import { useGetSchemasOptions } from '../hooks/use-get-schemas-options';
+import type { Import } from '../types';
+import { useNavigate } from '@tanstack/react-router';
 
 const CreateImportForm = () => {
   const [schemaOption, setSchemaOption] = useState<SelectOption | undefined>(undefined);
@@ -41,6 +43,17 @@ export const ImportsPage = () => {
   const { currentPage, currentPageSize, processPagination } = usePagination();
   const { data } = useImports({ page: currentPage, pageSize: currentPageSize });
 
+  const navigate = useNavigate();
+
+  const handleNavigateDetails = (row: Import) => {
+    navigate({
+      to: '/import/$importId',
+      params: {
+        importId: row.importId.toString(),
+      },
+    });
+  };
+
   return (
     <div className="flex flex-col gap-8">
       <div className="flex justify-between items-center">
@@ -72,6 +85,13 @@ export const ImportsPage = () => {
           {
             header: 'Updated at',
             render: (row) => formatDateTime(row.updatedAt),
+          },
+        ]}
+        actions={[
+          {
+            type: 'item',
+            label: 'Detalhes',
+            callback: handleNavigateDetails,
           },
         ]}
       />
