@@ -1,5 +1,5 @@
 import { Heading } from '@/components/heading';
-import { useImports } from '../hooks/use-imports';
+import { useGetImports } from '../hooks/use-get-imports';
 import { DataTable } from '@/components/data-table';
 import { formatDateTime } from '@/lib/date';
 import { Sidebar } from '@/components/sidebar/sidebar';
@@ -42,7 +42,7 @@ const CreateImportForm = () => {
 
 export const ImportsPage = () => {
   const { currentPage, currentPageSize, processPagination } = usePagination();
-  const { data } = useImports({ page: currentPage, pageSize: currentPageSize });
+  const { data } = useGetImports({ page: currentPage, pageSize: currentPageSize });
   const { mutate: deleteImportMutation } = useDeleteImport();
 
   const navigate = useNavigate();
