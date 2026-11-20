@@ -18,7 +18,7 @@ export const AppSidebar = () => {
           </li>
           <li>
             <Link
-              to="/imports"
+              to="/schemas"
               activeProps={{ className: 'bg-slate-300' }}
               className="w-full flex p-2 rounded-sm"
             >
@@ -27,7 +27,7 @@ export const AppSidebar = () => {
           </li>
           <li>
             <Link
-              to="/imports"
+              to="/settings"
               activeProps={{ className: 'bg-slate-300' }}
               className="w-full flex p-2 rounded-sm"
             >

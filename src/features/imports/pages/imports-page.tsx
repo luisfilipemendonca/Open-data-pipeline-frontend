@@ -49,7 +49,7 @@ export const ImportsPage = () => {
 
   const handleNavigateDetails = (row: Import) => {
     navigate({
-      to: '/import/$importId',
+      to: '/imports/$importId',
       params: {
         importId: row.importId.toString(),
       },
@@ -92,7 +92,7 @@ export const ImportsPage = () => {
         actions={[
           {
             type: 'item',
-            label: 'Detalhes',
+            label: 'Details',
             callback: handleNavigateDetails,
           },
           {

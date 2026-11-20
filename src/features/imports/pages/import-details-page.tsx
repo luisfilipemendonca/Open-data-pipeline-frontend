@@ -1,4 +1,4 @@
-import { Route } from '@/routes/import.$importId';
+import { Route } from '@/routes/imports.$importId';
 import { ImportDetails } from '../components/import-details';
 import { ImportDetailsTable } from '../components/import-details-table';
 

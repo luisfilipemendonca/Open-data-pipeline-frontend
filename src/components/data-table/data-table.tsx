@@ -17,9 +17,9 @@ export const DataTable = <T extends object>({
   const { tableTitleId } = useDataTable();
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 bg-white p-4 rounded-sm shadow-[0_0_2px] shadow-slate-300">
       {title && <Heading id={tableTitleId}>{title}</Heading>}
-      <div className="overflow-hidden shadow-[0_0_2px] shadow-slate-300 rounded-sm">
+      <div className="overflow-hidden shadow-[0_0_2px] shadow-slate-300 rounded-sm ">
         <Table aria-labelledby={title ? tableTitleId : undefined} className="bg-white">
           <TableHeader className="bg-slate-100">
             <TableRow>

@@ -11,7 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ImportsRouteImport } from './routes/imports'
-import { Route as ImportImportIdRouteImport } from './routes/import.$importId'
+import { Route as SchemasRouteImport } from './routes/schemas'
+import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ImportsIndexRouteImport } from './routes/imports.index'
+import { Route as ImportsImportIdRouteImport } from './routes/imports.$importId'
+import { Route as SchemasIndexRouteImport } from './routes/schemas.index'
+import { Route as SchemasSchemaIdRouteImport } from './routes/schemas.$schemaId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -23,40 +28,102 @@ const ImportsRoute = ImportsRouteImport.update({
   path: '/imports',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ImportImportIdRoute = ImportImportIdRouteImport.update({
-  id: '/import/$importId',
-  path: '/import/$importId',
+const SchemasRoute = SchemasRouteImport.update({
+  id: '/schemas',
+  path: '/schemas',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImportsIndexRoute = ImportsIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ImportsRoute,
+} as any)
+const ImportsImportIdRoute = ImportsImportIdRouteImport.update({
+  id: '/$importId',
+  path: '/$importId',
+  getParentRoute: () => ImportsRoute,
+} as any)
+const SchemasIndexRoute = SchemasIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SchemasRoute,
+} as any)
+const SchemasSchemaIdRoute = SchemasSchemaIdRouteImport.update({
+  id: '/$schemaId',
+  path: '/$schemaId',
+  getParentRoute: () => SchemasRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/imports': typeof ImportsRoute
-  '/import/$importId': typeof ImportImportIdRoute
+  '/imports': typeof ImportsRouteWithChildren
+  '/schemas': typeof SchemasRouteWithChildren
+  '/settings': typeof SettingsRoute
+  '/imports/$importId': typeof ImportsImportIdRoute
+  '/schemas/$schemaId': typeof SchemasSchemaIdRoute
+  '/imports/': typeof ImportsIndexRoute
+  '/schemas/': typeof SchemasIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/imports': typeof ImportsRoute
-  '/import/$importId': typeof ImportImportIdRoute
+  '/settings': typeof SettingsRoute
+  '/imports/$importId': typeof ImportsImportIdRoute
+  '/schemas/$schemaId': typeof SchemasSchemaIdRoute
+  '/imports': typeof ImportsIndexRoute
+  '/schemas': typeof SchemasIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/imports': typeof ImportsRoute
-  '/import/$importId': typeof ImportImportIdRoute
+  '/imports': typeof ImportsRouteWithChildren
+  '/schemas': typeof SchemasRouteWithChildren
+  '/settings': typeof SettingsRoute
+  '/imports/$importId': typeof ImportsImportIdRoute
+  '/schemas/$schemaId': typeof SchemasSchemaIdRoute
+  '/imports/': typeof ImportsIndexRoute
+  '/schemas/': typeof SchemasIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/imports' | '/import/$importId'
+  fullPaths:
+    | '/'
+    | '/imports'
+    | '/schemas'
+    | '/settings'
+    | '/imports/$importId'
+    | '/schemas/$schemaId'
+    | '/imports/'
+    | '/schemas/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/imports' | '/import/$importId'
-  id: '__root__' | '/' | '/imports' | '/import/$importId'
+  to:
+    | '/'
+    | '/settings'
+    | '/imports/$importId'
+    | '/schemas/$schemaId'
+    | '/imports'
+    | '/schemas'
+  id:
+    | '__root__'
+    | '/'
+    | '/imports'
+    | '/schemas'
+    | '/settings'
+    | '/imports/$importId'
+    | '/schemas/$schemaId'
+    | '/imports/'
+    | '/schemas/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ImportsRoute: typeof ImportsRoute
-  ImportImportIdRoute: typeof ImportImportIdRoute
+  ImportsRoute: typeof ImportsRouteWithChildren
+  SchemasRoute: typeof SchemasRouteWithChildren
+  SettingsRoute: typeof SettingsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -75,20 +142,82 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ImportsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/import/$importId': {
-      id: '/import/$importId'
-      path: '/import/$importId'
-      fullPath: '/import/$importId'
-      preLoaderRoute: typeof ImportImportIdRouteImport
+    '/schemas': {
+      id: '/schemas'
+      path: '/schemas'
+      fullPath: '/schemas'
+      preLoaderRoute: typeof SchemasRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/imports/': {
+      id: '/imports/'
+      path: '/'
+      fullPath: '/imports/'
+      preLoaderRoute: typeof ImportsIndexRouteImport
+      parentRoute: typeof ImportsRoute
+    }
+    '/imports/$importId': {
+      id: '/imports/$importId'
+      path: '/$importId'
+      fullPath: '/imports/$importId'
+      preLoaderRoute: typeof ImportsImportIdRouteImport
+      parentRoute: typeof ImportsRoute
+    }
+    '/schemas/': {
+      id: '/schemas/'
+      path: '/'
+      fullPath: '/schemas/'
+      preLoaderRoute: typeof SchemasIndexRouteImport
+      parentRoute: typeof SchemasRoute
+    }
+    '/schemas/$schemaId': {
+      id: '/schemas/$schemaId'
+      path: '/$schemaId'
+      fullPath: '/schemas/$schemaId'
+      preLoaderRoute: typeof SchemasSchemaIdRouteImport
+      parentRoute: typeof SchemasRoute
     }
   }
 }
 
+interface ImportsRouteChildren {
+  ImportsImportIdRoute: typeof ImportsImportIdRoute
+  ImportsIndexRoute: typeof ImportsIndexRoute
+}
+
+const ImportsRouteChildren: ImportsRouteChildren = {
+  ImportsImportIdRoute: ImportsImportIdRoute,
+  ImportsIndexRoute: ImportsIndexRoute,
+}
+
+const ImportsRouteWithChildren =
+  ImportsRoute._addFileChildren(ImportsRouteChildren)
+
+interface SchemasRouteChildren {
+  SchemasSchemaIdRoute: typeof SchemasSchemaIdRoute
+  SchemasIndexRoute: typeof SchemasIndexRoute
+}
+
+const SchemasRouteChildren: SchemasRouteChildren = {
+  SchemasSchemaIdRoute: SchemasSchemaIdRoute,
+  SchemasIndexRoute: SchemasIndexRoute,
+}
+
+const SchemasRouteWithChildren =
+  SchemasRoute._addFileChildren(SchemasRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ImportsRoute: ImportsRoute,
-  ImportImportIdRoute: ImportImportIdRoute,
+  ImportsRoute: ImportsRouteWithChildren,
+  SchemasRoute: SchemasRouteWithChildren,
+  SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
