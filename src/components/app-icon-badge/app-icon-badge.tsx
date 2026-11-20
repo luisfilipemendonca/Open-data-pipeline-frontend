@@ -8,6 +8,8 @@ const appIconBadgeVariants = cva('rounded-full flex items-center justify-center'
       sm: 'size-8',
       md: 'size-10',
       lg: 'size-12',
+      xl: 'size-16',
+      xxl: 'size-20',
     },
     variant: {
       neutral: 'bg-slate-400',

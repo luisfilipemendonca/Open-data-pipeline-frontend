@@ -4,6 +4,6 @@ export type AppIconBadgeVariants = 'neutral' | 'success' | 'danger';
 
 export type AppIconBadgeProps = PropsWithChildren<{
   className?: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
   variant?: AppIconBadgeVariants;
 }>;
