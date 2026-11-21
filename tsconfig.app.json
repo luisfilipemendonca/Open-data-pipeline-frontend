@@ -4,7 +4,7 @@
     "target": "es2023",
     "lib": ["ES2023", "DOM"],
     "module": "esnext",
-    "types": ["vite/client"],
+    "types": ["vite/client", "node"],
     "allowArbitraryExtensions": true,
     "skipLibCheck": true,
 
@@ -30,5 +30,5 @@
       "@mappers/*": ["./src/mappers/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "scripts"]
 }

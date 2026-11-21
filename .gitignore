@@ -25,3 +25,5 @@ dist-ssr
 *.sw?
 
 conventional-commits.md
+src/types/api.d.ts
+src/types/api-schemas.ts

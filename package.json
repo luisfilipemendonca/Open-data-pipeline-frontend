@@ -1,10 +1,14 @@
 {
   "name": "open-data-pipeline-frontend",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "generate:api:types": "openapi-typescript http://localhost:8000/openapi.json -o src/types/api.d.ts",
+    "generate:api:aliases": "tsx scripts/generate-api-aliases.ts",
+    "format:api:aliases": "oxfmt src/types/api-schemas.ts",
+    "generate:api": "npm run generate:api:types && npm run generate:api:aliases && npm run format:api:aliases",
+    "dev": "npm run generate:api && vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
@@ -33,9 +37,11 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.2",
+    "openapi-typescript": "^7.13.0",
     "oxfmt": "^0.74.0",
     "oxlint": "^1.88.0",
-    "typescript": "~6.0.3",
+    "tsx": "^4.23.15",
+    "typescript": "~5.9.3",
     "vite": "^8.3.4"
   }
 }
