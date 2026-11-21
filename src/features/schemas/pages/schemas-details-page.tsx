@@ -6,8 +6,13 @@ import { Heading } from '@/components/heading';
 import { Text } from '@/components/text';
 import { Separator } from '@/components/ui/separator';
 import { Calendar, File, Layers } from 'lucide-react';
+import { useGetSchemaDetails } from '../hooks/use-get-schema-details';
+import { Route } from '@/routes/schemas.$schemaId';
 
 export const SchemasDetailsPage = () => {
+  const { schemaId } = Route.useParams();
+  const { data } = useGetSchemaDetails(+schemaId);
+
   return (
     <div className="flex flex-col gap-8">
       <Card className="flex gap-4">
